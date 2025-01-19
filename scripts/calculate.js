@@ -1,4 +1,4 @@
-const operations = {
+const binaryOperations = {
   "+": (number1, number2) => number1 + number2,
   "-": (number1, number2) => number1 - number2,
   "*": (number1, number2) => number1 * number2,
@@ -8,17 +8,26 @@ const operations = {
 
 const unaryOperations = {
   "sin": (number) => Math.sin(number),
+  "cos": (number) => Math.cos(number),
+  "tan": (number) => Math.tan(number),
+  "e" : (number) => Math.exp(number),
 };
 
-const calculate = (number1, number2, operand) => {
-  if (typeof(number2) == "string") {
-    return unaryOperations[number2](number1);
-  }
-  if (operations[operand]) {
-    return operations[operand](number1, number2);
-  } else {
-    console.log("Invalid Operand");
-  }
+const binaryCalculate = (number1, number2, operand) => {
+    try {
+        if (typeof(number1) === "number" && typeof(number2) === "number") {
+            return binaryOperations[operand](number1, number2);
+        }
+        else{
+            throw "Enter a valid Number"
+        }
+    } catch (error) {
+        console.log(error);
+    }
 };
 
-export { calculate };
+const unaryCalculate = (number, operand) => {
+    return unaryOperations[operand](number);
+}
+
+export { unaryCalculate, binaryCalculate };

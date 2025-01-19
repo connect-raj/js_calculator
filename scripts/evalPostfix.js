@@ -1,36 +1,33 @@
-import { calculate } from "./calculate.js";
-var operators = ["/", "*", "-", "+", "%", "^"];
+import { unaryCalculate, binaryCalculate } from "./calculate.js";
+var binaryOperators = ["/", "*", "-", "+", "%", "^"];
+var unaryOperators = ["sin", "cos", "tan", "exp"]
 
 const evalPostfix = (postfixArray) => {
-  var stack = [];
-  console.log(postfixArray);
+    var stack = [];
+    let result = 0;
 
-  for (var i = 0; i < postfixArray.length; i++) {
-    if (!operators.includes(postfixArray[i])) {
-      stack.push(Number(postfixArray[i]));
-    } else {
-      let result = 0;
-      if (stack[stack.length - 1] == "number") {
-        if (stack[stack.length - 2] == "number") {
-          result = calculate(
-            stack[stack.length - 2],
-            stack[stack.length - 1],
-            postfixArray[i]
-          );
+    for (var i = 0; i < postfixArray.length; i++) {
+        if (!binaryOperators.includes(postfixArray[i])) {
+            if (!unaryOperators.includes(postfixArray[i])) {
+                stack.push(Number(postfixArray[i]));
+            } else {
+                result = unaryCalculate(stack[stack.length - 1], postfixArray[i]);
+                stack.pop();
+                stack.push(result);
+                // console.log(stack);
+            }
         } else {
-          result = calculate(
-            stack[stack.length - 1],
-            stack[stack.length - 2],
-          );
+            console.log(stack);
+            result = binaryCalculate(Number(stack[stack.length - 2]), Number(stack[stack.length - 1]), postfixArray[i]);
+            console.log(result);
+            stack.pop();
+            stack.pop();
+            stack.push(result);
+            // console.log(stack);
         }
-      }
-      stack.pop();
-      stack.pop();
-      stack.push(result);
     }
-  }
 
-  console.log(stack[stack.length - 1]);
+    //   console.log(stack[stack.length - 1]);
 };
 
 export { evalPostfix };
