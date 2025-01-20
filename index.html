@@ -4,10 +4,61 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <input type="text" class="inputCalc" value="" />
-    <button class="calc">=</button>
+    <div class="container">
+      <div class="display">
+        <input type="text" id="inputCalc" disabled />
+        <div class="result"></div>
+      </div>
+      <div class="buttons">
+        <button data-value="">2<sup>nd</sup></button>
+        <button data-value="pi">&#960;</button>
+        <button data-value="e">e</button>
+        <button data-value="clear">C</button>
+        <button data-value="backspace">
+          <i class="fa-solid fa-delete-left"></i>
+        </button>
+        <button data-value="pow2">X<sup>2</sup></button>
+        <button data-value="1/X">1/X</button>
+        <button data-value="negx">|X|</button>
+        <button data-value="exp">exp</button>
+        <button data-value="mod">mod</button>
+        <button data-value="√">√X</button>
+        <button data-value="(">(</button>
+        <button data-value=")">)</button>
+        <button data-value="!">n!</button>
+        <button data-value="÷">÷</button>
+        <button data-value="^">X<sup>y</sup></button>
+        <button data-value="7">7</button>
+        <button data-value="8">8</button>
+        <button data-value="9">9</button>
+        <button data-value="*">*</button>
+        <button data-value="powx">10<sup>x</sup></button>
+        <button data-value="4">4</button>
+        <button data-value="5">5</button>
+        <button data-value="6">6</button>
+        <button data-value="-">-</button>
+        <button data-value="log_10">log</button>
+        <button data-value="1">1</button>
+        <button data-value="2">2</button>
+        <button data-value="3">3</button>
+        <button data-value="+">+</button>
+        <button data-value="log">ln</button>
+        <button data-value="+/-">+/-</button>
+        <button data-value="0">0</button>
+        <button data-value=".">.</button>
+        <input type="button" value="=" class="calc" />
+      </div>
+    </div>
     <script type="module" src="scripts/index.js"></script>
   </body>
 </html>

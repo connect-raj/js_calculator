@@ -1,63 +1,58 @@
 import { prec } from "./precedence.js";
 
 const toInfixArray = (input) => {
-  var arr = [];
-  var str = "";
-  for (var i = 0; i < input.length; i++) {
-    if ("+*/()^%,{}".indexOf(input[i]) > -1) {
+  const arr = [];
+  let str = "";
+
+  for (let i = 0; i < input.length; i++) {
+    const char = input[i];
+
+    if ("+-*÷()^%,{}[]!√".includes(char)) {
       if (str.length > 0) {
         arr.push(str);
-      }
-      arr.push(input[i]);
-      str = "";
-    } else if (input[i] == "-") {
-      if (str.length > 0) {
-        arr.push(str);
-      }
-      if (i == 0) {
-        arr.push("0-");
-      } else if (arr.length > 0 && prec[arr[arr.length - 1]] > 0) {
-        arr.push("0-");
-      } else {
-        arr.push(input[i]);
-      }
-      str = "";
-    } else if ("!=<>".indexOf(input[i]) > -1) {
-      if (i + 1 < input.length && input[i + 1] == "=") {
-        if (str.length > 0) {
-          arr.push(str);
-        }
-        arr.push(input[i] + input[i + 1]);
-        i++;
-      } else {
-        if (str.length > 0) {
-          arr.push(str);
-        }
-        arr.push(input[i]);
+        str = "";
       }
 
-      str = "";
-    } else if (input[i] == "_") {
-      if (str == "log") {
+      // Handle unary negative numbers explicitly
+      if (char === "-" && (i === 0 || prec[arr[arr.length - 1]] > 0)) {
+        arr.push("0"); // Add a leading 0 for unary negatives
+      }
+
+      arr.push(char);
+      continue;
+    }
+
+    // for log_10
+    if (char === "_") {
+      if (str === "log") {
         continue;
       }
       if (str.length > 0) {
         arr.push(str);
       }
-      arr.push(input[i]);
+      arr.push(char);
       str = "";
-    } else if (input[i] == " ") {
+      continue;
+    }
+
+    // Handle whitespace
+    if (char === " ") {
       if (str.length > 0) {
         arr.push(str);
+        str = "";
       }
-      str = "";
-    } else {
-      str += input[i];
+      continue;
     }
+
+    // Accumulate characters into `str`
+    str += char;
   }
+
+  // Push the last token if any
   if (str.length > 0) {
     arr.push(str);
   }
+  console.log(arr);
   return arr;
 };
 

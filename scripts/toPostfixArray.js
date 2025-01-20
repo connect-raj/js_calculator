@@ -73,6 +73,7 @@ function toPostfixArray(input, max) {
       }
       stack.pop();
     }
+    console.log(postfix);
     return postfix;
   }
   return { postfix: postfix, stack: stack };
