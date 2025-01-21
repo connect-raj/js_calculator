@@ -1,6 +1,6 @@
 import { unaryCalculate, binaryCalculate } from "./calculate.js";
 var binaryOperators = ["÷", "*", "-", "+", "%", "^"];
-var unaryOperators = ["sin", "cos", "tan", "exp", "log", "log10", "!", "√"];
+var unaryOperators = ["sin", "cos", "tan", "e", "log", "log10", "!", "√", "π"];
 
 const evalPostfix = (postfixArray) => {
   var stack = [];
@@ -13,6 +13,10 @@ const evalPostfix = (postfixArray) => {
         stack.push(Number(postfixArray[i]));
       } else {
         result = unaryCalculate(stack[stack.length - 1], postfixArray[i]);
+        if (postfixArray[i] == "e" || postfixArray[i] == "π") {
+          stack.push(result);
+          continue;
+        }
         stack.pop();
         stack.push(result);
       }

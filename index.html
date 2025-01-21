@@ -14,51 +14,71 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="ui-toggle">
+      <i class="fa-solid fa-moon"></i>
+    </div>
     <div class="container">
       <div class="display">
         <input type="text" id="inputCalc" disabled />
         <div class="result"></div>
       </div>
       <div class="buttons">
-        <button data-value="">2<sup>nd</sup></button>
-        <button data-value="pi">&#960;</button>
-        <button data-value="e">e</button>
-        <button data-value="clear">C</button>
-        <button data-value="backspace">
+        <button data-value="" class="button">2<sup>nd</sup></button>
+        <button data-value="π" class="button">π</button>
+        <button data-value="e" class="button">e</button>
+        <button data-value="clear" class="button">AC</button>
+        <button data-value="backspace" class="button">
           <i class="fa-solid fa-delete-left"></i>
         </button>
-        <button data-value="pow2">X<sup>2</sup></button>
-        <button data-value="1/X">1/X</button>
-        <button data-value="negx">|X|</button>
-        <button data-value="exp">exp</button>
-        <button data-value="mod">mod</button>
-        <button data-value="√">√X</button>
-        <button data-value="(">(</button>
-        <button data-value=")">)</button>
-        <button data-value="!">n!</button>
-        <button data-value="÷">÷</button>
-        <button data-value="^">X<sup>y</sup></button>
-        <button data-value="7">7</button>
-        <button data-value="8">8</button>
-        <button data-value="9">9</button>
-        <button data-value="*">*</button>
-        <button data-value="powx">10<sup>x</sup></button>
-        <button data-value="4">4</button>
-        <button data-value="5">5</button>
-        <button data-value="6">6</button>
-        <button data-value="-">-</button>
-        <button data-value="log_10">log</button>
-        <button data-value="1">1</button>
-        <button data-value="2">2</button>
-        <button data-value="3">3</button>
-        <button data-value="+">+</button>
-        <button data-value="log">ln</button>
-        <button data-value="+/-">+/-</button>
-        <button data-value="0">0</button>
-        <button data-value=".">.</button>
+        <button data-value="pow2" class="button">X<sup>2</sup></button>
+        <button data-value="sin" class="button">sin</button>
+        <button data-value="cos" class="button">cos</button>
+        <button data-value="tan" class="button">tan</button>
+        <button data-value="mod" class="button">mod</button>
+        <button data-value="√" class="button">√X</button>
+        <button data-value="(" class="button">(</button>
+        <button data-value=")" class="button">)</button>
+        <button data-value="!" class="button">n!</button>
+        <button data-value="÷" class="button">÷</button>
+        <button data-value="^" class="button">X<sup>y</sup></button>
+        <button data-value="7" class="button">7</button>
+        <button data-value="8" class="button">8</button>
+        <button data-value="9" class="button">9</button>
+        <button data-value="*" class="button">*</button>
+        <button data-value="powx" class="button">10<sup>x</sup></button>
+        <button data-value="4" class="button">4</button>
+        <button data-value="5" class="button">5</button>
+        <button data-value="6" class="button">6</button>
+        <button data-value="-" class="button">-</button>
+        <button data-value="log_10" class="button">log</button>
+        <button data-value="1" class="button">1</button>
+        <button data-value="2" class="button">2</button>
+        <button data-value="3" class="button">3</button>
+        <button data-value="+" class="button">+</button>
+        <button data-value="log" class="button">ln</button>
+        <button data-value="+/-" class="button">+/-</button>
+        <button data-value="0" class="button">0</button>
+        <button data-value="." class="button">.</button>
         <input type="button" value="=" class="calc" />
       </div>
     </div>
+    <div class="history">
+      <div class="title">
+        <i class="fa-solid fa-clock-rotate-left"></i> History
+        <button class="hist-clear">clear</button>
+      </div>
+      <div class="history-container"></div>
+    </div>
     <script type="module" src="scripts/index.js"></script>
+    <script>
+      const removeElement = (child) => {
+        console.log(child);
+
+        let parent = child.parentNode;
+        let parentUpper = parent.parentNode;
+
+        parentUpper.parentNode.removeChild(parentUpper);
+      };
+    </script>
   </body>
 </html>
