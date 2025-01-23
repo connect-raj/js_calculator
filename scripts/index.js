@@ -21,7 +21,10 @@ const calculate = () => {
   let infixArray = toInfixArray(equation);
   let postfixArray = toPostfixArray(infixArray, -1);
   let result = evalPostfix(postfixArray);
-  console.log(result);
+  if (result == undefined) {
+    result = eval(equation);
+    console.log(equation);
+  }
   toDom(result, equation);
 };
 

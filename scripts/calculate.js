@@ -22,7 +22,7 @@ class Calculator {
       }
     } catch (error) {
       alert(error);
-      return "";
+      return error;
     }
   }
 
@@ -83,15 +83,15 @@ const binaryOperations = {
 };
 
 const unaryOperations = {
-  "sin": (number) => Calculator.sin(number),
-  "cos": (number) => Calculator.cos(number),
-  "tan": (number) => Calculator.tan(number),
-  "e": () => Calculator.e(),
-  "log": (number) => Calculator.log(number),
-  "log10": (number) => Calculator.log10(number),
+  sin: (number) => Calculator.sin(number),
+  cos: (number) => Calculator.cos(number),
+  tan: (number) => Calculator.tan(number),
+  e: () => Calculator.e(),
+  log: (number) => Calculator.log(number),
+  log10: (number) => Calculator.log10(number),
   "√": (number) => Calculator.sqrt(number),
   "!": (number) => fact(number),
-  "π": () => Calculator.PI(),
+  π: () => Calculator.PI(),
 };
 
 const binaryCalculate = (number1, number2, operand) => {

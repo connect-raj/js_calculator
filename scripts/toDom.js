@@ -1,10 +1,19 @@
 const resultBlock = document.querySelector(".result");
 let historyBlock = document.querySelector(".history-container");
+let history = [];
 
 const toDom = (result, equation) => {
   resultBlock.innerHTML = result;
   toHistory(result, equation);
 };
+
+// const addItem = () => {
+//   const nodes = document.querySelectorAll(".item");
+
+//   nodes.forEach((node) => history.push(node.outerHTML));
+
+//   localStorage.setItem("history", JSON.stringify(history));
+// };
 
 const toHistory = (result, equation) => {
   historyBlock.innerHTML += `
@@ -16,6 +25,8 @@ const toHistory = (result, equation) => {
     <div class="answer">${result}</div>
   </div>
   `;
+
+  // addItem();
 };
 
 export { toDom };
