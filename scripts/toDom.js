@@ -16,13 +16,17 @@ const toDom = (result, equation) => {
 // };
 
 const toHistory = (result, equation) => {
+  const obj = [equation, result];
   historyBlock.innerHTML += `
   <div class="item">
     <div class="title" style="display:flex;">
-      <div class="equation">${equation}</div>
+      <div class="equation" data-value="${equation}">${equation}</div>
       <i class="fa-solid fa-trash" id="deleteBTN" onClick="removeElement(this);"></i>
     </div>
-    <div class="answer">${result}</div>
+    <div class="content" style="display:flex;">
+    <div class="result" data-value="${result}">${result}</div>
+    <i class="fa-solid fa-plus"></i>
+    </div>
   </div>
   `;
 

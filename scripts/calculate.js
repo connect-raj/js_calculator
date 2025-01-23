@@ -39,12 +39,24 @@ class Calculator {
     return Math.sin(number);
   }
 
+  static arcsin(number) {
+    return Math.asin(number);
+  }
+
   static cos(number) {
     return Math.cos(number);
   }
 
+  static arccos(number) {
+    return Math.acos(number);
+  }
+
   static tan(number) {
     return Math.tan(number);
+  }
+
+  static arctan(number) {
+    return Math.atan(number);
   }
 
   static log(number) {
@@ -84,8 +96,11 @@ const binaryOperations = {
 
 const unaryOperations = {
   sin: (number) => Calculator.sin(number),
+  arcsin: (number) => Calculator.arcsin(number),
   cos: (number) => Calculator.cos(number),
+  arccos: (number) => Calculator.arccos(number),
   tan: (number) => Calculator.tan(number),
+  arctan: (number) => Calculator.arctan(number),
   e: () => Calculator.e(),
   log: (number) => Calculator.log(number),
   log10: (number) => Calculator.log10(number),
@@ -109,7 +124,5 @@ const binaryCalculate = (number1, number2, operand) => {
 const unaryCalculate = (number, operand) => {
   return unaryOperations[operand](number);
 };
-
-console.log(unaryOperations["log10"](100));
 
 export { unaryCalculate, binaryCalculate };

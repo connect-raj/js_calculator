@@ -1,6 +1,19 @@
 import { unaryCalculate, binaryCalculate } from "./calculate.js";
 var binaryOperators = ["÷", "*", "-", "+", "%", "^"];
-var unaryOperators = ["sin", "cos", "tan", "e", "log", "log10", "!", "√", "π"];
+var unaryOperators = [
+  "sin",
+  "arcsin",
+  "cos",
+  "arccos",
+  "tan",
+  "arctan",
+  "e",
+  "log",
+  "log10",
+  "!",
+  "√",
+  "π",
+];
 
 const evalPostfix = (postfixArray) => {
   var stack = [];

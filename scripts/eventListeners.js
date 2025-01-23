@@ -6,6 +6,8 @@ const eventListeners = () => {
   const result = document.querySelector(".result");
   const history = document.querySelector(".history-container");
   const histClearBtn = document.querySelector(".hist-clear");
+  const second = document.querySelector(".second");
+
   const literals = [
     "1",
     "2",
@@ -21,6 +23,17 @@ const eventListeners = () => {
     "-",
     "*",
     "/",
+  ];
+
+  const unaryOperations = [
+    "sin",
+    "arcsin",
+    "cos",
+    "arccos",
+    "tan",
+    "arctan",
+    "log",
+    "log_10",
   ];
 
   const uiToggle = document.querySelector(".ui-toggle");
@@ -45,6 +58,8 @@ const eventListeners = () => {
         result.innerHTML = "";
       } else if (button.dataset.value == "√") {
         input.value += `√`;
+      } else if (button.dataset.value == "inv") {
+        input.value += `^-1`;
       } else if (button.dataset.value == "powx") {
         input.value += "10^";
       } else if (button.dataset.value == "backspace") {
@@ -52,12 +67,27 @@ const eventListeners = () => {
         result.innerHTML = "";
       } else if (button.dataset.value == "pow2") {
         input.value += "^2";
+      } else if (unaryOperations.includes(button.dataset.value)) {
+        input.value += button.dataset.value + "(";
       } else {
         // console.log(button.dataset.value);
         input.value += button.dataset.value;
       }
     })
   );
+
+  second.addEventListener("click", () => {
+    console.log("Click");
+    const inverseButtons = document.querySelectorAll(".secondary");
+
+    inverseButtons.forEach((button) => {
+      if (button.classList.contains("inactive")) {
+        button.classList.remove("inactive");
+      } else {
+        button.classList.add("inactive");
+      }
+    });
+  });
 
   histClearBtn.addEventListener("click", () => {
     history.innerHTML = "";

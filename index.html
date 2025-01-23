@@ -23,7 +23,7 @@
         <div class="result"></div>
       </div>
       <div class="buttons">
-        <button data-value="" class="button">2<sup>nd</sup></button>
+        <button data-value="" class="button second">2<sup>nd</sup></button>
         <button data-value="π" class="button">π</button>
         <button data-value="e" class="button">e</button>
         <button data-value="clear" class="button">AC</button>
@@ -31,9 +31,18 @@
           <i class="fa-solid fa-delete-left"></i>
         </button>
         <button data-value="pow2" class="button">X<sup>2</sup></button>
-        <button data-value="sin" class="button">sin</button>
-        <button data-value="cos" class="button">cos</button>
-        <button data-value="tan" class="button">tan</button>
+        <button data-value="sin" class="button secondary">sin</button>
+        <button data-value="arcsin" class="button secondary inactive">
+          sin<sup>-1</sup>
+        </button>
+        <button data-value="cos" class="button secondary">cos</button>
+        <button data-value="arccos" class="button secondary inactive">
+          cos<sup>-1</sup>
+        </button>
+        <button data-value="tan" class="button secondary">tan</button>
+        <button data-value="arctan" class="button secondary inactive">
+          tan<sup>-1</sup>
+        </button>
         <button data-value="mod" class="button">mod</button>
         <button data-value="√" class="button">√X</button>
         <button data-value="(" class="button">(</button>
@@ -56,10 +65,18 @@
         <button data-value="3" class="button">3</button>
         <button data-value="+" class="button">+</button>
         <button data-value="log" class="button">ln</button>
-        <button data-value="+/-" class="button">+/-</button>
+        <button data-value="inv" class="button">1/X</button>
         <button data-value="0" class="button">0</button>
         <button data-value="." class="button">.</button>
         <input type="button" value="=" class="calc" />
+      </div>
+      <div class="deg-rad">
+        <form>
+          <input type="radio" value="degree" />
+          <label for="degree">Degree</label>
+          <input type="radio" value="radians" />
+          <label for="radians">Radians</label>
+        </form>
       </div>
     </div>
     <div class="history">

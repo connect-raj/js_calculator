@@ -12,7 +12,7 @@ body{
     height: 100vh;
     background-color: white;
     background-color: #4b5563;
-    transition: all ease-in 1s;
+    transition: all ease-in 0.7s;
 }
 .ui-toggle{
     position: fixed;
@@ -51,7 +51,10 @@ body{
     grid-template-columns: repeat(5, 1fr);
     gap: 2px;
 }
-.buttons button, .buttons input{
+.inactive{
+    display: none;
+}
+.buttons button, .buttons .calc{
     width: 50px;
     height: 50px;
     /* border: ; */
@@ -60,7 +63,10 @@ body{
     outline: none;
     /* cursor:; */
 }
-.buttons button:hover, .buttons input:hover{
+.deg-rad form{
+    display: flex;
+}
+.buttons button:hover, .buttons .calc:hover{
     transform: scale(1.1);
     filter: brightness(80%) blur(0.2px);
 }
@@ -97,12 +103,12 @@ body{
     margin: 0.5ch;
     padding: 0 1ch;
 }
-.history .item .title{
+.history .item .title, .content{
     display: flex;
     justify-content: space-between;
     font-size: 1.3rem;
 }
-.history .item .title i{
+.history .item .title i,.content i{
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
