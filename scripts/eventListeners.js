@@ -59,7 +59,7 @@ const eventListeners = () => {
       } else if (button.dataset.value == "√") {
         input.value += `√`;
       } else if (button.dataset.value == "inv") {
-        input.value += `^-1`;
+        input.value = `1÷` + input.value;
       } else if (button.dataset.value == "powx") {
         input.value += "10^";
       } else if (button.dataset.value == "backspace") {
@@ -91,6 +91,8 @@ const eventListeners = () => {
 
   histClearBtn.addEventListener("click", () => {
     history.innerHTML = "";
+    localStorage.clear();
+    alert("History Cleared");
   });
 
   document.addEventListener("keypress", (event) => {

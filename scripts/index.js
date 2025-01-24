@@ -18,14 +18,20 @@ const removeElement = (child) => {
 
 const calculate = () => {
   const equation = document.getElementById("inputCalc").value;
-  let infixArray = toInfixArray(equation);
-  let postfixArray = toPostfixArray(infixArray, -1);
-  let result = evalPostfix(postfixArray);
-  if (result == undefined) {
-    result = eval(equation);
-    console.log(equation);
+  if ("÷*%^!".includes(equation[0])) {
+    alert("Input should not start with operator");
+  } else if (equation) {
+    let infixArray = toInfixArray(equation);
+    let postfixArray = toPostfixArray(infixArray, -1);
+    let result = evalPostfix(postfixArray);
+    if (result == undefined) {
+      result = eval(equation);
+      console.log(equation);
+    }
+    toDom(result, equation);
+  } else {
+    alert("Input should not be empty");
   }
-  toDom(result, equation);
 };
 
 //handling portions for calculations

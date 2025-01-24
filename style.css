@@ -63,8 +63,20 @@ body{
     outline: none;
     /* cursor:; */
 }
-.deg-rad form{
-    display: flex;
+.deg-rad{
+    margin-top: 1ch;
+}
+.deg-rad button{
+    width: 100%;
+    border-radius: 0.5rem;
+    padding: 1ch;
+    font-size: 1.2rem; 
+    cursor: pointer;
+}
+.deg-rad button:hover{
+    transform: scale(1.1);
+    filter: brightness(80%) blur(0.2px);
+
 }
 .buttons button:hover, .buttons .calc:hover{
     transform: scale(1.1);
@@ -91,6 +103,10 @@ body{
     border-radius: 1rem;
     cursor: pointer;
 }
+.history .title button:hover{
+    transform: scale(1.1);
+    filter: brightness(80%) blur(0.2px);
+}
 .history .history-container{
     display: flex;
     flex-direction: column;
@@ -102,6 +118,7 @@ body{
     width: 100%;
     margin: 0.5ch;
     padding: 0 1ch;
+    cursor: pointer;
 }
 .history .item .title, .content{
     display: flex;
@@ -114,4 +131,9 @@ body{
 }
 .history .item .title i:hover{
     color: red;
+    transform: scale(1.1);
+}
+.content i:hover{
+    color: green;
+    transform: scale(1.1);
 }

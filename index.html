@@ -13,7 +13,7 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body onload="fetchHistory()">
     <div class="ui-toggle">
       <i class="fa-solid fa-moon"></i>
     </div>
@@ -71,12 +71,7 @@
         <input type="button" value="=" class="calc" />
       </div>
       <div class="deg-rad">
-        <form>
-          <input type="radio" value="degree" />
-          <label for="degree">Degree</label>
-          <input type="radio" value="radians" />
-          <label for="radians">Radians</label>
-        </form>
+        <button class="" onclick="degToRad()">Degree</button>
       </div>
     </div>
     <div class="history">
@@ -88,13 +83,109 @@
     </div>
     <script type="module" src="scripts/index.js"></script>
     <script>
+      let history = [];
+
+      const degToRad = () => {
+        let result = document.querySelector("#inputCalc");
+        let number = "",
+          charset = "";
+        let operation = ["sin", "cos", "tan"];
+        for (let i = 0; i < result.value.length; i++) {
+          if (result.value[i] >= "0" && result.value[i] <= "9") {
+            number += result.value[i];
+          } else if (result.value[i] >= "a" && result.value[i] <= "z") {
+            charset += result.value[i];
+          }
+        }
+
+        console.log(number);
+        let value = Number(number);
+
+        function radDeg(value) {
+          return (value * Math.PI) / 180;
+        }
+        if (operation.includes(charset)) {
+          result.value = charset + "(" + radDeg(value) + ")";
+        }
+      };
+
+      const addNode = (child) => {
+        child = child.parentNode.parentNode;
+        history = JSON.parse(localStorage.getItem("history")) || [];
+        history.push({
+          equation: child.querySelector(".equation").dataset.value,
+          result: child.querySelector(".result").dataset.value,
+        });
+
+        console.log(history);
+
+        try {
+          localStorage.setItem("history", JSON.stringify(history));
+          document.querySelector(".fa-plus").style.display = "none";
+          alert("History added");
+        } catch (e) {
+          alert("Error adding history", e);
+        }
+      };
+
+      const fetchHistory = () => {
+        try {
+          let data = localStorage.getItem("history");
+
+          if (data) {
+            data = JSON.parse(data);
+            loadHistory(data);
+          }
+        } catch (e) {
+          console.log("Error fetching history", e);
+        }
+      };
+
+      const loadHistory = (data) => {
+        const historyContainer = document.querySelector(".history-container");
+        let html = "";
+
+        data.forEach((node) => {
+          html += `  <div class="item">
+                        <div class="title" style="display:flex;">
+                          <div class="equation" data-value="${node.equation}" onClick = "loadtoinp(this)">${node.equation}</div>
+                          <i class="fa-solid fa-trash" id="deleteBTN" onClick="removeElement(this);"></i>
+                        </div>
+                        <div class="content" style="display:flex;">
+                          <div class="result" data-value="${node.result}">${node.result}</div>
+                        </div>
+                      </div>`;
+        });
+        historyContainer.innerHTML = html;
+      };
+
+      const loadtoinp = function (child) {
+        let equation = child.dataset.value;
+        let input = document.querySelector("#inputCalc");
+        input.value = equation;
+      };
+
       const removeElement = (child) => {
-        console.log(child);
+        history = JSON.parse(localStorage.getItem("history"));
+        console.log(history);
 
-        let parent = child.parentNode;
-        let parentUpper = parent.parentNode;
+        parent = child.parentNode.parentNode;
+        let equation = parent.querySelector(".equation").dataset.value;
+        console.log(equation);
 
-        parentUpper.parentNode.removeChild(parentUpper);
+        history.forEach((element) => {
+          if (element.equation === equation) {
+            history.splice(history.indexOf(element), 1);
+          }
+        });
+
+        try {
+          localStorage.setItem("history", JSON.stringify(history));
+          alert("History removed");
+          loadHistory(history);
+        } catch (error) {
+          alert(error);
+        }
       };
     </script>
   </body>
