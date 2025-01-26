@@ -5,12 +5,189 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-
-<body>
-    <input type="text" id="inputCalc" />
-    <button class="calc">=</button>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body onload="fetchHistory()">
+    <div class="ui-toggle">
+      <i class="fa-solid fa-moon"></i>
+    </div>
+    <div class="container">
+      <div class="display">
+        <input type="text" id="inputCalc" disabled />
+        <div class="result"></div>
+      </div>
+      <div class="buttons">
+        <button data-value="" class="button second">2<sup>nd</sup></button>
+        <button data-value="π" class="button">π</button>
+        <button data-value="e" class="button">e</button>
+        <button data-value="clear" class="button">AC</button>
+        <button data-value="backspace" class="button">
+          <i class="fa-solid fa-delete-left"></i>
+        </button>
+        <button data-value="pow2" class="button">X<sup>2</sup></button>
+        <button data-value="sin" class="button secondary">sin</button>
+        <button data-value="arcsin" class="button secondary inactive">
+          sin<sup>-1</sup>
+        </button>
+        <button data-value="cos" class="button secondary">cos</button>
+        <button data-value="arccos" class="button secondary inactive">
+          cos<sup>-1</sup>
+        </button>
+        <button data-value="tan" class="button secondary">tan</button>
+        <button data-value="arctan" class="button secondary inactive">
+          tan<sup>-1</sup>
+        </button>
+        <button data-value="mod" class="button">mod</button>
+        <button data-value="√" class="button">√X</button>
+        <button data-value="(" class="button">(</button>
+        <button data-value=")" class="button">)</button>
+        <button data-value="!" class="button">n!</button>
+        <button data-value="÷" class="button">÷</button>
+        <button data-value="^" class="button">X<sup>y</sup></button>
+        <button data-value="7" class="button">7</button>
+        <button data-value="8" class="button">8</button>
+        <button data-value="9" class="button">9</button>
+        <button data-value="*" class="button">*</button>
+        <button data-value="powx" class="button">10<sup>x</sup></button>
+        <button data-value="4" class="button">4</button>
+        <button data-value="5" class="button">5</button>
+        <button data-value="6" class="button">6</button>
+        <button data-value="-" class="button">-</button>
+        <button data-value="log_10" class="button">log</button>
+        <button data-value="1" class="button">1</button>
+        <button data-value="2" class="button">2</button>
+        <button data-value="3" class="button">3</button>
+        <button data-value="+" class="button">+</button>
+        <button data-value="log" class="button">ln</button>
+        <button data-value="inv" class="button">1/X</button>
+        <button data-value="0" class="button">0</button>
+        <button data-value="." class="button">.</button>
+        <input type="button" value="=" class="calc" />
+      </div>
+      <div class="deg-rad">
+        <button class="" onclick="degToRad()">Degree</button>
+      </div>
+    </div>
+    <div class="history">
+      <div class="title">
+        <i class="fa-solid fa-clock-rotate-left"></i> History
+        <button class="hist-clear">clear</button>
+      </div>
+      <div class="history-container"></div>
+    </div>
     <script type="module" src="scripts/index.js"></script>
-</body>
+    <script>
+      let history = [];
 
+      const degToRad = () => {
+        let result = document.querySelector("#inputCalc");
+        let number = "",
+          charset = "";
+        let operation = ["sin", "cos", "tan"];
+        for (let i = 0; i < result.value.length; i++) {
+          if (result.value[i] >= "0" && result.value[i] <= "9") {
+            number += result.value[i];
+          } else if (result.value[i] >= "a" && result.value[i] <= "z") {
+            charset += result.value[i];
+          }
+        }
+
+        console.log(number);
+        let value = Number(number);
+
+        function radDeg(value) {
+          return (value * Math.PI) / 180;
+        }
+        if (operation.includes(charset)) {
+          result.value = charset + "(" + radDeg(value) + ")";
+        }
+      };
+
+      const addNode = (child) => {
+        child = child.parentNode.parentNode;
+        history = JSON.parse(localStorage.getItem("history")) || [];
+        history.push({
+          equation: child.querySelector(".equation").dataset.value,
+          result: child.querySelector(".result").dataset.value,
+        });
+
+        console.log(history);
+
+        try {
+          localStorage.setItem("history", JSON.stringify(history));
+          document.querySelector(".fa-plus").style.display = "none";
+          alert("History added");
+        } catch (e) {
+          alert("Error adding history", e);
+        }
+      };
+
+      const fetchHistory = () => {
+        try {
+          let data = localStorage.getItem("history");
+
+          if (data) {
+            data = JSON.parse(data);
+            loadHistory(data);
+          }
+        } catch (e) {
+          console.log("Error fetching history", e);
+        }
+      };
+
+      const loadHistory = (data) => {
+        const historyContainer = document.querySelector(".history-container");
+        let html = "";
+
+        data.forEach((node) => {
+          html += `  <div class="item">
+                        <div class="title" style="display:flex;">
+                          <div class="equation" data-value="${node.equation}" onClick = "loadtoinp(this)">${node.equation}</div>
+                          <i class="fa-solid fa-trash" id="deleteBTN" onClick="removeElement(this);"></i>
+                        </div>
+                        <div class="content" style="display:flex;">
+                          <div class="result" data-value="${node.result}">${node.result}</div>
+                        </div>
+                      </div>`;
+        });
+        historyContainer.innerHTML = html;
+      };
+
+      const loadtoinp = function (child) {
+        let equation = child.dataset.value;
+        let input = document.querySelector("#inputCalc");
+        input.value = equation;
+      };
+
+      const removeElement = (child) => {
+        history = JSON.parse(localStorage.getItem("history"));
+        console.log(history);
+
+        parent = child.parentNode.parentNode;
+        let equation = parent.querySelector(".equation").dataset.value;
+        console.log(equation);
+
+        history.forEach((element) => {
+          if (element.equation === equation) {
+            history.splice(history.indexOf(element), 1);
+          }
+        });
+
+        try {
+          localStorage.setItem("history", JSON.stringify(history));
+          alert("History removed");
+          loadHistory(history);
+        } catch (error) {
+          alert(error);
+        }
+      };
+    </script>
+  </body>
 </html>

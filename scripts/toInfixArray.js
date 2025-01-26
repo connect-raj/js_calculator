@@ -7,7 +7,7 @@ const toInfixArray = (input) => {
   for (let i = 0; i < input.length; i++) {
     const char = input[i];
 
-    if ("+*/()^%,{}[]!=<>".includes(char)) {
+    if ("+-*÷()^%,{}[]!√π".includes(char)) {
       if (str.length > 0) {
         arr.push(str);
         str = "";
@@ -52,7 +52,7 @@ const toInfixArray = (input) => {
   if (str.length > 0) {
     arr.push(str);
   }
-
+  console.log(arr);
   return arr;
 };
 

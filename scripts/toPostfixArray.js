@@ -7,75 +7,42 @@ function toPostfixArray(input, max) {
   if (maxx > input.length || maxx < 0) {
     maxx = input.length;
   }
+
   for (var i = 0; i < maxx; i++) {
-    if (prec[input[i]]) {
-      if (stack.length == 0) {
-        stack.push(input[i]);
-      } else if (input[i] == "0-") {
-        stack.push(input[i]);
-      } else if (prec[stack[stack.length - 1]] < prec[input[i]]) {
-        stack.push(input[i]);
-      } else if (stack[stack.length - 1] == "^" && input[i] == "^") {
-        stack.push(input[i]);
-      } else {
-        while (
-          stack.length > 0 &&
-          prec[stack[stack.length - 1]] >= prec[input[i]]
-        ) {
-          if (stack[stack.length - 1] == "^" && input[i] == "^") {
-            break;
-          }
-          var last = stack[stack.length - 1];
-          if (last == "0-" && isNumber(postfix[postfix.length - 1])) {
-            postfix[postfix.length - 1] = "-" + postfix[postfix.length - 1];
-          } else {
-            postfix.push(last);
-          }
-          stack.pop();
-        }
-        stack.push(input[i]);
+    let token = input[i];
+
+    if (prec[token]) {
+      while (
+        stack.length > 0 &&
+        ((prec[token].associativity === "left" &&
+          prec[token].precedence <= prec[stack[stack.length - 1]].precedence) ||
+          (prec[token].associativity === "right" &&
+            prec[token].precedence < prec[stack[stack.length - 1]].precedence))
+      ) {
+        postfix.push(stack.pop());
       }
-    } else if (input[i] == "(" || input[i] == "{") {
-      stack.push(input[i]);
-    } else if (input[i] == ")") {
-      while (stack.length > 0 && stack[stack.length - 1] != "(") {
-        var last = stack[stack.length - 1];
-        if (last == "0-" && isNumber(postfix[postfix.length - 1])) {
-          postfix[postfix.length - 1] = "-" + postfix[postfix.length - 1];
-        } else {
-          postfix.push(last);
-        }
-        stack.pop();
-      }
-      stack.pop();
-    } else if (input[i] == "}") {
-      while (stack.length > 0 && stack[stack.length - 1] != "{") {
-        var last = stack[stack.length - 1];
-        if (last == "0-" && isNumber(postfix[postfix.length - 1])) {
-          postfix[postfix.length - 1] = "-" + postfix[postfix.length - 1];
-        } else {
-          postfix.push(last);
-        }
-        stack.pop();
+      stack.push(token);
+    } else if (token === "(" || token === "{") {
+      stack.push(token);
+    } else if (token === ")" || token === "}") {
+      while (
+        stack.length > 0 &&
+        stack[stack.length - 1] !== "(" &&
+        stack[stack.length - 1] !== "{"
+      ) {
+        postfix.push(stack.pop());
       }
       stack.pop();
     } else {
-      postfix.push(input[i]);
+      postfix.push(token);
     }
   }
-  if (max == -1) {
-    while (stack.length > 0) {
-      var last = stack[stack.length - 1];
-      if (last == "0-" && isNumber(postfix[postfix.length - 1])) {
-        postfix[postfix.length - 1] = "-" + postfix[postfix.length - 1];
-      } else {
-        postfix.push(last);
-      }
-      stack.pop();
-    }
-    return postfix;
+
+  while (stack.length > 0) {
+    postfix.push(stack.pop());
   }
-  return { postfix: postfix, stack: stack };
+
+  return postfix;
 }
 
 export { toPostfixArray };
